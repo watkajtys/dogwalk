@@ -39,7 +39,7 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
 <div class="relative min-h-screen">
-<div class="flex flex-col h-full">
+<div id="dashboard-page" class="flex flex-col h-full">
 <header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark shadow-sm">
 <button class="p-2 rounded-full hover:bg-primary/10">
 <svg class="text-slate-800 dark:text-slate-200" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
@@ -47,8 +47,12 @@
 <h1 class="text-lg font-bold text-center flex-1 text-slate-900 dark:text-slate-50">Dashboard</h1>
 <div class="w-10"></div>
 </header>
-<main class="flex-grow p-4 flex flex-col gap-4">
+<main class="flex-grow p-4 flex flex-col gap-4 pb-24">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-5 flex flex-col justify-center items-center">
+    <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Total Time</h3>
+    <span id="total-time" class="text-4xl font-bold text-primary">00:00:00</span>
+</div>
 <div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-5 flex flex-col justify-center items-center">
 <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Pace</h3>
 <span id="pace" class="text-4xl font-bold text-primary">0:00</span>
@@ -79,6 +83,52 @@ End Walk
 </div>
 </main>
 </div>
+
+<!-- History Page -->
+<div id="history-page" style="display: none;" class="p-4 pb-24">
+    <header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark shadow-sm -m-4 mb-4">
+        <div class="w-10"></div>
+        <h1 class="text-lg font-bold text-center flex-1 text-slate-900 dark:text-slate-50">Walk History</h1>
+        <div class="w-10"></div>
+    </header>
+    <div id="history-list" class="flex flex-col gap-4">
+        <!-- History items will be injected here -->
+    </div>
+</div>
+
+<!-- Details Page -->
+<div id="details-page" style="display: none;" class="p-4 pb-24">
+    <header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark shadow-sm -m-4 mb-4">
+        <button id="back-to-history" class="p-2 rounded-full hover:bg-primary/10">
+            <svg class="text-slate-800 dark:text-slate-200" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
+        </button>
+        <h1 id="details-title" class="text-lg font-bold text-center flex-1 text-slate-900 dark:text-slate-50">Walk Details</h1>
+        <div class="w-10"></div>
+    </header>
+    <div class="flex flex-col gap-4">
+        <div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-4 flex-1">
+            <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-3">Route</h3>
+            <canvas id="details-walk-canvas" class="w-full h-64 rounded-lg"></canvas>
+        </div>
+        <div id="details-stats" class="grid grid-cols-2 gap-4">
+            <!-- Details stats will be injected here -->
+        </div>
+    </div>
+</div>
+
+<!-- Footer Navigation -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-[0_-1px_3px_rgba(0,0,0,0.1)]">
+    <nav class="flex justify-around p-2">
+        <button id="nav-dashboard" class="flex flex-col items-center gap-1 p-2 rounded-lg text-primary">
+            <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M144,136H112a8,8,0,0,0-8,8v72a8,8,0,0,0,16,0V144A8,8,0,0,0,144,136Zm-8-40a12,12,0,1,1-12-12A12,12,0,0,1,136,96Zm96-40V216a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V216H216Z"></path></svg>
+            <span class="text-xs font-bold">Dashboard</span>
+        </button>
+        <button id="nav-history" class="flex flex-col items-center gap-1 p-2 rounded-lg text-slate-600 dark:text-slate-300">
+            <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M232,128A104,104,0,0,1,39.1,153.33a8,8,0,0,1,11.1-11.54,88,88,0,1,0,0-27.58,8,8,0,0,1-11.1-11.54A104,104,0,0,1,232,128Zm-88,4a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V140A8,8,0,0,0,144,132Zm-4-40a12,12,0,1,0-12-12A12,12,0,0,0,140,92Z"></path></svg>
+            <span class="text-xs font-bold">History</span>
+        </button>
+    </nav>
+</footer>
 </div>
 <script src="app.js" defer></script>
 </body>
