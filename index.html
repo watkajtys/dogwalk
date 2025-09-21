@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dog Walk Tracker</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#38e07b",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .icon {
+            font-size: 24px;
+            line-height: 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
+<div class="relative min-h-screen">
+<div class="flex flex-col h-full">
+<header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark shadow-sm">
+<button class="p-2 rounded-full hover:bg-primary/10">
+<svg class="text-slate-800 dark:text-slate-200" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
+</button>
+<h1 class="text-lg font-bold text-center flex-1 text-slate-900 dark:text-slate-50">Dashboard</h1>
+<div class="w-10"></div>
+</header>
+<main class="flex-grow p-4 flex flex-col gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-5 flex flex-col justify-center items-center">
+<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Pace</h3>
+<span id="pace" class="text-4xl font-bold text-primary">0:00</span>
+<span class="text-sm text-slate-500 dark:text-slate-400">/ mile</span>
+</div>
+<div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-5 flex flex-col justify-center items-center">
+<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Sniff Count</h3>
+<span id="sniff-count" class="text-4xl font-bold text-slate-900 dark:text-slate-50">0</span>
+</div>
+<div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-5 flex flex-col justify-center items-center">
+<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2">Mean Sniff Time</h3>
+<span id="mean-sniff-time" class="text-4xl font-bold text-slate-900 dark:text-slate-50">0s</span>
+</div>
+</div>
+
+<div class="bg-white dark:bg-background-dark rounded-xl shadow-lg p-4 flex-1">
+<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-3">Walk Route</h3>
+<canvas id="walk-canvas" class="w-full h-64 rounded-lg"></canvas>
+</div>
+
+<div class="mt-auto">
+<button id="start-walk" class="w-full bg-primary text-slate-900 font-bold py-3 px-5 rounded-full hover:bg-opacity-90 transition-colors">
+Start Walk
+</button>
+<button id="end-walk" class="w-full bg-primary text-slate-900 font-bold py-3 px-5 rounded-full hover:bg-opacity-90 transition-colors" style="display: none;">
+End Walk
+</button>
+</div>
+</main>
+</div>
+</div>
+<script src="app.js" defer></script>
+</body>
+</html>
